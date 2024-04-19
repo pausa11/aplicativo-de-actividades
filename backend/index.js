@@ -13,15 +13,40 @@ const pool = new pg.Pool({
 });
 
 app.use(cors());
+app.use(express.json()); // Agrega este middleware para analizar el cuerpo de las solicitudes JSON
 
-app.get('/ping', async(req, res) => {
+app.get('/', async(req, res) => {
 
-  const result = await pool.query('SELECT NOW()');
+  const result = await pool.query('SELECT * FROM actividades');
   console.log(result);
 
   res.send(
     {
-      pong: result.rows[0].now
+      actividades: result.rows
+    }
+  );
+});
+
+app.post('/', async(req, res) => {
+  console.log('en post')
+  const { nombreactividad, fechaactividad } = req.body;
+  console.log(nombreactividad, fechaactividad);
+  const result = await pool.query('INSERT INTO actividades (nombreactividad, fechaactividad) VALUES ($1, $2)', [nombreactividad, fechaactividad]);
+  console.log(result);
+  res.send(
+    {
+      actividades: result.rows
+    }
+  );
+});
+
+app.delete('/:id', async(req, res) => {
+  const { id } = req.params;
+  const result = await pool.query('DELETE FROM actividades WHERE id = $1', [id]);
+  console.log(result);
+  res.send(
+    {
+      actividades: result.rows
     }
   );
 });
