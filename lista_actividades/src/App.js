@@ -46,40 +46,88 @@ function App() {
     }
   }
 
+  //-----------------------------------
+
+  const canciones = ['houdini.mp3', 'zeze.mp3','gose.mp3','party.mp3'];
+
+  const [cancion, setCancion] = useState('Reproducir canción aleatoria');
+  const [audio, setAudio] = useState(null); // Estado para almacenar el objeto de audio
+
+  const cancionAleatoria = () => {
+    console.log('Reproducir canción aleatoria');
+    // Si hay una canción reproduciéndose, detenerla
+    if (audio) {
+      audio.pause();
+    }
+    // Seleccionar una nueva canción aleatoria y reproducirla
+    const cancionAleatoria = canciones[Math.floor(Math.random() * canciones.length)];
+    setCancion(cancionAleatoria);
+    const nuevoAudio = new Audio(cancionAleatoria);
+    setAudio(nuevoAudio); // Actualizar el estado del objeto de audio
+    nuevoAudio.play();
+  }
+
+  const pararCancion = () => {
+    console.log('Parar canción');
+    if (audio) {
+      audio.pause();
+    }
+  }
+
   return (
-    <div className="App">
-      <div>
-        <h1>Lista de Actividades</h1>
+    <div className="App" style={{background:'#E6E4D5',height: '100vh', display: 'flex', flexDirection: 'column', fontFamily:'calibri',alignItems:'center'}}>
+
+      <div style={{display: 'flex',justifyContent: 'center', width:'100%', alignItems: 'center',marginBottom:'5vh',background:'#F1524A',height:'10vh',color:'white'}}>
+        <img src="hearth.png" alt="heart" style={{height:'8vh',margin:'2vh'}}/>
+        <text style={{margin:'0', fontSize:'4vh',letterSpacing:'.1vh',fontWeight:'700'}}>Actividades de Luisa y Daniel  </text>
       </div>
 
-      <div>
+      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'#0D3876', height:'25vh',width:'80%',marginBottom:'5vh'}}>
         <input
           type="text"
           value={nombreactividad}
           placeholder="Nombre de la actividad"
           onChange={(e) => setNombreActividad(e.target.value)}
+          style={{marginBottom:'1vh'}}
         />
         <input
           type="date"
           value={fechaactividad}
           onChange={(e) => setFechaActividad(e.target.value)}
+          style={{marginBottom:'3vh'}}
         />
-        <button onClick={agregarActividad}>Agregar Actividad</button>
+
+        <button onClick={agregarActividad} style={{height:'6vh'}}>Agregar Actividad</button>
       </div>
 
-      {/* <button onClick={fetchActividades}>Obtener Actividades</button> */}
-
-      <div>
-        <h2>Actividades</h2>
-        <ul>
+      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'#127F96',width:'80%',color:'white',padding:'1vh'}}>
+        <h2 style={{margin:'0'}}>Actividades</h2>
+        <div style={{marginTop:'2vh'}}>
           {actividades.map((actividad) => (
-            <li key={actividad.id}>
-              <strong>Nombre:</strong> {actividad.nombreactividad}, 
+            <text key={actividad.id} style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:'2vh'}}>
+              <strong>Nombre:</strong> {actividad.nombreactividad} <br />
               <strong>Fecha:</strong> {new Date(actividad.fechaactividad).toLocaleDateString()
-              } <button onClick={() => eliminarActividad(actividad.id)}>Eliminar</button>
-            </li>
+              }
+            <br /> 
+            <button onClick={() => eliminarActividad(actividad.id)} style={{marginTop:'.5vh'}}>Eliminar</button>
+            </text>
           ))}
-        </ul>
+        </div>
+      </div>
+
+      <div style={{marginTop:'1vh',display:'flex',flexDirection:'column'}}>
+        <button onClick={() => {cancionAleatoria();}} style={{height:'6vh',background:'#F1524A',color:'white',borderRadius:'1vh'}}>
+          {cancion}
+        </button>
+
+        <button onClick={() => {pararCancion();}} style={{marginTop:'1vh',height:'6vh',background:'#F1524A',color:'white',borderRadius:'1vh'}}>
+          pausar cancion
+        </button>
+
+      </div>
+
+      <div style={{marginTop:'1vh'}}>
+        nuestro aplicativo web :)
       </div>
     </div>
   );
