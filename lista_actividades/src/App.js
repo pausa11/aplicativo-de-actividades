@@ -75,20 +75,20 @@ function App() {
   }
 
   return (
-    <div className="App" style={{background:'#E6E4D5',height: '100vh', display: 'flex', flexDirection: 'column', fontFamily:'calibri',alignItems:'center'}}>
+    <div className="App" style={{background:'#E6E4D5',minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily:'calibri',alignItems:'center'}}>
 
-      <div style={{display: 'flex',justifyContent: 'center', width:'100%', alignItems: 'center',marginBottom:'5vh',background:'#F1524A',height:'10vh',color:'white'}}>
-        <img src="hearth.png" alt="heart" style={{height:'8vh',margin:'2vh'}}/>
-        <text style={{margin:'0', fontSize:'4vh',letterSpacing:'.1vh',fontWeight:'700'}}>Actividades de Luisa y Daniel  </text>
+      <div style={{display: 'flex',justifyContent: 'center', width:'100%', alignItems: 'center',marginBottom:'5vh',background:'black',height:'10vh',color:'white'}}>
+        <img src="hearth.png" alt="heart" style={{height:'8vh',margin:'2vh',animation:'hearth .5s linear infinite'}} />
+        <text style={{margin:'0', fontSize:'4vh',letterSpacing:'.4vh',fontWeight:'700'}}>Actividades de Luisa & Daniel  </text>
       </div>
 
-      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'#0D3876', height:'25vh',width:'80%',marginBottom:'5vh'}}>
+      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'white', height:'25vh',width:'80%',marginBottom:'5vh'}}>
         <input
           type="text"
           value={nombreactividad}
           placeholder="Nombre de la actividad"
           onChange={(e) => setNombreActividad(e.target.value)}
-          style={{marginBottom:'1vh'}}
+          style={{marginBottom:'1vh',textAlign:'center'}}
         />
         <input
           type="date"
@@ -100,11 +100,11 @@ function App() {
         <button onClick={agregarActividad} style={{height:'6vh'}}>Agregar Actividad</button>
       </div>
 
-      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'#127F96',width:'80%',color:'white',padding:'1vh'}}>
+      <div style={{display: 'flex',justifyContent: 'center',flexDirection:'column', alignItems: 'center',borderRadius: '3vw',background:'gray',width:'80%',color:'white',padding:'1vh'}}>
         <h2 style={{margin:'0'}}>Actividades</h2>
         <div style={{marginTop:'2vh'}}>
           {actividades.map((actividad) => (
-            <text key={actividad.id} style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:'2vh'}}>
+            <text key={actividad.id} style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:'2vh',marginBottom:'2vh'}}>
               <strong>Nombre:</strong> {actividad.nombreactividad} <br />
               <strong>Fecha:</strong> {new Date(actividad.fechaactividad).toLocaleDateString()
               }
@@ -116,11 +116,11 @@ function App() {
       </div>
 
       <div style={{marginTop:'1vh',display:'flex',flexDirection:'column'}}>
-        <button onClick={() => {cancionAleatoria();}} style={{height:'6vh',background:'#F1524A',color:'white',borderRadius:'1vh'}}>
+        <button onClick={() => {cancionAleatoria();}} style={{height:'6vh',background:'white',color:'black',borderRadius:'1vh'}}>
           {cancion}
         </button>
 
-        <button onClick={() => {pararCancion();}} style={{marginTop:'1vh',height:'6vh',background:'#F1524A',color:'white',borderRadius:'1vh'}}>
+        <button onClick={() => {pararCancion();}} style={{marginTop:'1vh',height:'6vh',background:'black',color:'white',borderRadius:'1vh'}}>
           pausar cancion
         </button>
 
